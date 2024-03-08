@@ -1,0 +1,28 @@
+name: Sync Files
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Initialize Git repository if nonexistent
+        run: |
+          if ! git rev-parse --git-dir > /dev/null 2>&1; then
+              echo "No Git repository found. Initializing..."
+              git init
+          fi
+      - name: Checkout Repository
+        uses: actions/checkout@master
+      - name: Run GitHub File Sync
+        uses: BetaHuhn/repo-file-sync-action@v1
+        with:
+          GH_PAT: ${{ secrets.GH_PAT }}
+          SKIP_PR:  true
+          PR_LABELS: |
+            file-sync
+            automerge
+          
