@@ -1,0 +1,5 @@
+cybersader/cybersader-notion-workspace-public@main:
+- source: General/
+  dest: CybersaderNotion/
+- source: index.html
+  dest: CybersaderNotion/index.html
